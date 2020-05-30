@@ -4,13 +4,23 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<SplitPane dividerPositions="0.20351758793969849" maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
-   <items>
-      <TextField alignment="CENTER_RIGHT" editable="false" prefHeight="77.0" prefWidth="598.0" text="0">
+<GridPane maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+  <columnConstraints>
+    <ColumnConstraints />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints />
+    <RowConstraints />
+    <RowConstraints />
+    <RowConstraints />
+    <RowConstraints />
+  </rowConstraints>
+   <children>
+      <TextField alignment="CENTER_RIGHT" editable="false" prefHeight="77.0" prefWidth="598.0" text="0" GridPane.columnIndex="0" GridPane.rowIndex="0">
          <font>
             <Font size="29.0" />
          </font></TextField>
-      <SplitPane dividerPositions="0.6655518394648829" prefHeight="160.0" prefWidth="200.0">
+      <SplitPane dividerPositions="0.6655518394648829" maxHeight="1000000.0" maxWidth="1000000.0" prefHeight="1000000.0" prefWidth="1000000.0" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.rowSpan="4">
          <items>
             <GridPane>
               <columnConstraints>
@@ -46,5 +56,5 @@
             </GridPane>
          </items>
       </SplitPane>
-   </items>
-</SplitPane>
+   </children>
+</GridPane>
