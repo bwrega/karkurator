@@ -195,4 +195,30 @@ class CalculationEngineImplTest {
     assertThat(output).isEqualTo("0");
   }
 
+  @Test
+  void shouldStartNewOperationAfterResult() {
+    // then
+    engine.consumeInput("5+5=2+2=");
+
+    // then
+    assertThat(output).isEqualTo("4");
+  }
+
+  @Test
+  void equalsAfterEqualsRepeatsPreviousOperation() {
+    // then
+    engine.consumeInput("5+5==");
+
+    // then
+    assertThat(output).isEqualTo("15");
+
+    // given
+    engine.resetState();
+
+    // then
+    engine.consumeInput("5+5===");
+
+    // then
+    assertThat(output).isEqualTo("20");
+  }
 }
