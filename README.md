@@ -38,6 +38,10 @@ See how does adding and division work - and implement subtraction and multiplica
 
 Change font used for "display" to something that looks like an LCD display.
 
+### Implement keyboard
+
+Implement handling calculator using keyboard. Especially - numerical keyboard.
+
 ### Random colors on button press
 
 Implement such behaviour, that when any button is clicked - all elements get random colors.

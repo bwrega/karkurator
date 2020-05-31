@@ -9,10 +9,7 @@
     <ColumnConstraints />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints />
-    <RowConstraints />
-    <RowConstraints />
-    <RowConstraints />
+    <RowConstraints percentHeight="20"/>
     <RowConstraints />
   </rowConstraints>
    <children>
@@ -20,17 +17,16 @@
          <font>
             <Font size="29.0" />
          </font></TextField>
-      <GridPane maxHeight="1000000.0" maxWidth="1000000.0" prefHeight="1000000.0" prefWidth="1000000.0" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.rowSpan="4">
+      <GridPane maxHeight="1000000.0" maxWidth="1000000.0" prefHeight="1000000.0" prefWidth="1000000.0" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
          <columnConstraints>
-           <ColumnConstraints percentWidth="33"/>
-           <ColumnConstraints percentWidth="33"/>
+           <ColumnConstraints percentWidth="66"/>
            <ColumnConstraints/>
          </columnConstraints>
         <rowConstraints>
           <RowConstraints/>
         </rowConstraints>
          <children>
-            <GridPane id="digit-pane" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2" prefHeight="1000000">
+            <GridPane id="digit-pane" GridPane.columnIndex="0" GridPane.rowIndex="0" prefHeight="1000000">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
@@ -43,7 +39,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
               </rowConstraints>
             </GridPane>
-            <GridPane GridPane.columnIndex="2" GridPane.rowIndex="0" prefHeight="1000000">
+            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="0" prefHeight="1000000">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -54,12 +50,12 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button mnemonicParsing="false" text="+" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
-                  <Button mnemonicParsing="false" text="-" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
-                  <Button mnemonicParsing="false" text="*" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                  <Button mnemonicParsing="false" text="/" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                  <Button mnemonicParsing="false" text="C" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                  <Button mnemonicParsing="false" text="=" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                  <Button styleClass="operationButton" id="buttonAdd" mnemonicParsing="false" text="+" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                  <Button styleClass="operationButton" id="buttonSubtract" mnemonicParsing="false" text="-" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                  <Button styleClass="operationButton" id="buttonMultiply" mnemonicParsing="false" text="*" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                  <Button styleClass="operationButton" id="buttonDivide" mnemonicParsing="false" text="/" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                  <Button styleClass="operationButton" id="buttonClear" mnemonicParsing="false" text="C" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                  <Button styleClass="operationButton" id="buttonEquals" mnemonicParsing="false" text="=" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                </children>
             </GridPane>
          </children>

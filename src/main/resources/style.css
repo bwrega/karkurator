@@ -1,0 +1,17 @@
+#digit-pane {
+    /*-fx-background-color: #11AA11;*/
+}
+
+.digitButton {
+    -fx-pref-width: 80;
+    -fx-pref-height: 50;
+}
+
+.zeroButton {
+    -fx-pref-width: 200;
+}
+
+.operationButton {
+    -fx-pref-width: 90;
+    -fx-pref-height: 60;
+}
