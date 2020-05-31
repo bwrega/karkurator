@@ -13,7 +13,7 @@
     <RowConstraints />
   </rowConstraints>
    <children>
-      <TextField alignment="CENTER_RIGHT" editable="false" prefHeight="77.0" prefWidth="598.0" text="0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+      <TextField styleClass="display" alignment="CENTER_RIGHT" editable="false" prefHeight="77.0" prefWidth="598.0" text="0" GridPane.columnIndex="0" GridPane.rowIndex="0">
          <font>
             <Font size="29.0" />
          </font></TextField>

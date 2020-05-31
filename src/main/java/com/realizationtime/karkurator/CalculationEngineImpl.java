@@ -64,10 +64,6 @@ public class CalculationEngineImpl implements CalculationEngine {
 
     public static State INITIAL_STATE = new State("", Optional.empty(), "", Optional.empty());
 
-//    public State(String accumulator, Optional<Character> operator, String operand) {
-//      this(accumulator, operator, operand, Optional.empty());
-//    }
-
     public State addOperandCharacter(char digit) {
       if (!accumulator.isEmpty() && operator.isEmpty()) {
         return INITIAL_STATE.addOperandCharacter(digit);
