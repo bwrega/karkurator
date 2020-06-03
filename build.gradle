@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.javamodularity.moduleplugin' version '1.7.0'
     id 'application'
+    id "com.google.osdetector" version "1.6.2"
 }
 
 group 'com.realizationtime'
@@ -22,13 +23,29 @@ application {
 ext {
     lombokVersion = '1.18.12'
     javaFxVersion = '14.0.1'
+    javaFxOs = {
+        def oses = ["linux"  : "linux",
+                    "windows": "win",
+                    "osx"    : "mac"]
+        def detectedOs = oses[osdetector.os]
+        if (detectedOs == null) {
+            def supportedPlatforms = oses.keySet().join("', '")
+            throw new GradleException(
+                String.format(
+                    "Unsupported JavaFX platform found: '%s'! " +
+                        "This plugin is designed to work on supported platforms only. " +
+                        "Currently supported platforms are '%s'.", osdetector.os, supportedPlatforms)
+            )
+        }
+        detectedOs
+    }()
 }
 
 dependencies {
-    implementation "org.openjfx:javafx-base:${javaFxVersion}:linux"
-    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:linux"
-    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:linux"
-    implementation "org.openjfx:javafx-controls:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:${javaFxOs}"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:${javaFxOs}"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:${javaFxOs}"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:${javaFxOs}"
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
