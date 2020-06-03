@@ -17,12 +17,23 @@ or under Windows:
 
 JDK 14 (or newer) is required under JAVA_HOME environment variable.
 
-Running application:
+### Running application
 
 ```shell script
-java -jar build/libs/karkurator-1.0-SNAPSHOT.jar
+./gradlew run
 ```
-(java should be in version 14 or newer)
+
+### Running application under Intellij Idea
+
+Set
+`File | Settings | Build, Execution, Deployment | Build Tools | Gradle`
+
+`Build and run using` and `Run tests using ` to `Intellij Idea`.
+
+Add to run configuration:
+```
+--patch-module com.realizationtime.karkurator=out/production/resources
+```
 
 ## How to use this project for learning programming
 

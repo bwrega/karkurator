@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'org.javamodularity.moduleplugin' version '1.7.0'
+    id 'application'
 }
 
 group 'com.realizationtime'
@@ -10,6 +11,12 @@ sourceCompatibility = '14'
 
 repositories {
     mavenCentral()
+}
+
+application {
+    mainModule = 'com.realizationtime.karkurator'
+    mainClass = 'com.realizationtime.karkurator.KarkuratorMain'
+    applicationDefaultJvmArgs = ['--enable-preview']
 }
 
 ext {
@@ -33,6 +40,8 @@ dependencies {
 tasks.withType(JavaCompile).each {
     it.options.compilerArgs.add('--enable-preview')
 }
+
+run.dependsOn build
 
 test {
     useJUnitPlatform()
