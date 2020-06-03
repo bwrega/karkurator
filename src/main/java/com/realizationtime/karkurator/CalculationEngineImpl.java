@@ -3,6 +3,7 @@ package com.realizationtime.karkurator;
 import lombok.Getter;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -54,17 +55,14 @@ public class CalculationEngineImpl implements CalculationEngine {
 
   }
 
-  @Override
-  public void consumeInput(String input) {
-    input.chars()
-      .forEach(c -> consumeInput((char)c));
-  }
-
   public record State(String accumulator, Optional<Character>operator, String operand, Optional<Operation> previousOperation) {
 
     public static State INITIAL_STATE = new State("", Optional.empty(), "", Optional.empty());
 
     public State addOperandCharacter(char digit) {
+      if (wasLastOperationError()) {
+        return this;
+      }
       if (!accumulator.isEmpty() && operator.isEmpty()) {
         return INITIAL_STATE.addOperandCharacter(digit);
       }
@@ -72,12 +70,13 @@ public class CalculationEngineImpl implements CalculationEngine {
         return this;
       }
       if (operand.isEmpty() && digit == '0') {
-        return this;
+        return new State(accumulator, operator, "0", previousOperation);
       }
-      if (operand.isEmpty() && digit == '.') {
+      String operandNormalized = operand.equals("0") ? "" : operand;
+      if (operandNormalized.isEmpty() && digit == '.') {
         return new State(accumulator, operator, "0.", previousOperation);
       }
-      return new State(accumulator, operator, operand + digit, previousOperation);
+      return new State(accumulator, operator, operandNormalized + digit, previousOperation);
     }
 
     private String getOperandString() {
@@ -89,6 +88,9 @@ public class CalculationEngineImpl implements CalculationEngine {
     }
 
     public String getOutputString() {
+      if (wasLastOperationError()) {
+        return ERROR_MESSAGE;
+      }
       if (operand.isEmpty() && !accumulator.isEmpty()) {
         return accumulator;
       }
@@ -100,6 +102,9 @@ public class CalculationEngineImpl implements CalculationEngine {
     }
 
     public State addOperator(Character c) {
+      if (wasLastOperationError()) {
+        return this;
+      }
       if (accumulator.isEmpty()) {
         return new State(getOperandString(), Optional.of(c), "", Optional.empty());
       }
@@ -111,6 +116,9 @@ public class CalculationEngineImpl implements CalculationEngine {
     }
 
     public State commitOperation() {
+      if (wasLastOperationError()) {
+        return this;
+      }
       if (operator.isEmpty() && previousOperation.isEmpty()) {
         return this;
       }
@@ -125,22 +133,34 @@ public class CalculationEngineImpl implements CalculationEngine {
         previousOperation.get().operator
         : this.operator.get();
       if (operator == '+') {
-        newAccumulator = accumulator.add(operand);
+        newAccumulator = processResult(accumulator.add(operand));
       }
       if (operator == '-') {
-        newAccumulator = accumulator.subtract(operand);
+        newAccumulator = processResult(accumulator.subtract(operand));
       }
       if (operator == '*') {
-        newAccumulator = accumulator.multiply(operand);
+        newAccumulator = processResult(accumulator.multiply(operand));
       }
       if (operator == '/') {
-        newAccumulator = accumulator.divide(operand);
+        try {
+          newAccumulator = processResult(accumulator.divide(operand, MAX_PRECISION, RoundingMode.HALF_UP));
+        } catch (ArithmeticException ex) {
+          return new State(this.accumulator, Optional.empty(), "", Optional.of(new Operation(operator, operandStr, true)));
+        }
       }
-      Operation newPreviousOperation = new Operation(operator, operandStr);
-      return new State(newAccumulator.toString(), Optional.empty(), "", Optional.of(newPreviousOperation));
+      Operation newPreviousOperation = new Operation(operator, operandStr, false);
+      return new State(newAccumulator.toPlainString(), Optional.empty(), "", Optional.of(newPreviousOperation));
     }
 
-    private record Operation(char operator, String operand) {}
+    private BigDecimal processResult(BigDecimal rawResult) {
+      return rawResult.stripTrailingZeros();
+    }
+
+    private boolean wasLastOperationError() {
+      return previousOperation.map(Operation::error).orElse(false);
+    }
+
+    private record Operation(char operator, String operand, boolean error) {}
   }
 
 

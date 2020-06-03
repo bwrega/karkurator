@@ -35,8 +35,9 @@ public class KarkuratorMain extends Application {
 
   private void connectOperatorButtons() {
     connectOperatorButton("#buttonAdd", '+');
-    connectOperatorButton("#buttonSubtract", '-');
-    connectOperatorButton("#buttonMultiply", '*');
+    // uncomment these lines to enable subtraction and multiplication
+//    connectOperatorButton("#buttonSubtract", '-');
+//    connectOperatorButton("#buttonMultiply", '*');
     connectOperatorButton("#buttonDivide", '/');
     connectOperatorButton("#buttonEquals", '=');
     connectOperatorButton("#buttonClear", 'C');

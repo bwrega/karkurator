@@ -34,6 +34,8 @@ Here are some ideas for what can you do here:
 
 See how does adding and division work - and implement subtraction and multiplication.
 
+Pr0 tip: actually, it's implemented. All you have to do is to uncomment some code.
+
 ### Change display font
 
 Change font used for "display" to something that looks like an LCD display.
@@ -41,6 +43,10 @@ Change font used for "display" to something that looks like an LCD display.
 ### Implement keyboard
 
 Implement handling calculator using keyboard. Especially - numerical keyboard.
+
+### Reimplement CalculationEngine
+
+Provide your own implementation of CalculationEngine interface and use it in KarkuratorMain.
 
 ### Random colors on button press
 

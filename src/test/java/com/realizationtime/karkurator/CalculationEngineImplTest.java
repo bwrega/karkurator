@@ -112,6 +112,24 @@ class CalculationEngineImplTest {
 
     // then
     assertThat(output).isEqualTo("116");
+
+    // given
+    engine.resetState();
+
+    // when
+    engine.consumeInput("0.5+0.5=");
+
+    // then
+    assertThat(output).isEqualTo("1");
+  }
+
+  @Test
+  void shouldHandleTypedZeroProperly() {
+    // when
+    engine.consumeInput("1+0");
+
+    // then
+    assertThat(output).isEqualTo("+ 0");
   }
 
   @Test
@@ -157,6 +175,42 @@ class CalculationEngineImplTest {
 
     // then
     assertThat(output).isEqualTo("3.5");
+
+    // given
+    engine.resetState();
+
+    // then
+    engine.consumeInput("1/3=");
+
+    // then
+    assertThat(output).isEqualTo("0.333333333333333");
+  }
+
+  @Test
+  void shouldHandleDivisionByZero() {
+    // when
+    engine.consumeInput("1/0=");
+
+    // then
+    assertThat(output).isEqualTo("Error");
+
+    // given
+    engine.resetState();
+
+    // when
+    engine.consumeInput("78/0.00000000=");
+
+    // then
+    assertThat(output).isEqualTo("Error");
+  }
+
+  @Test
+  void shouldKeepErrorResultUntilClearButtonIsPressed() {
+    // when
+    engine.consumeInput("1/0=*55555");
+
+    // then
+    assertThat(output).isEqualTo("Error");
   }
 
   @Test
