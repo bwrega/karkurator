@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.openjfx.javafxplugin' version '0.0.8'
+    id 'org.javamodularity.moduleplugin' version '1.7.0'
 }
 
 group 'com.realizationtime'
@@ -17,24 +17,17 @@ ext {
     javaFxVersion = '14.0.1'
 }
 
-javafx {
-    version = javaFxVersion
-    modules = [ 'javafx.graphics', 'javafx.fxml', 'javafx.controls' ]
-}
-
 dependencies {
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:linux"
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
     testCompile "org.assertj:assertj-core:3.11.1"
     testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
-}
-
-plugins.withType(JavaPlugin).configureEach {
-    java {
-        modularity.inferModulePath = true
-    }
 }
 
 tasks.withType(JavaCompile).each {
@@ -44,8 +37,4 @@ tasks.withType(JavaCompile).each {
 test {
     useJUnitPlatform()
     jvmArgs(['--enable-preview'])
-}
-
-java {
-    modularity.inferModulePath.set(true)
 }
